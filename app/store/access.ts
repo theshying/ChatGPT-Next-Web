@@ -34,7 +34,7 @@ export const useAccessStore = create<AccessControlStore>()(
       token: "",
       accessCode: "",
       needCode: true,
-      hideUserApiKey: false,
+      hideUserApiKey: true,
       openaiUrl: DEFAULT_OPENAI_URL,
 
       enabledAccessControl() {

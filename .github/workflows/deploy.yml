@@ -20,14 +20,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - name: Setup Debug Session
-        env:
-          TMATE_DOCKER_CONTAINER: IMAGE_TAG
-          TMATE_ENCRYPT_PASSWORD: ${{secrets.TMATE_ENCRYPT_PASSWORD}}
-          SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
-        uses: tete1030/safe-debugger-action@master
-
-
+          
       - name: Get yarn cache
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -60,11 +53,3 @@ jobs:
             REMOTE_USER: "root" 
             # 目标目录
             TARGET: "/data/chat-web-next"
-            
-      - name: Setup Debug Session
-        env:
-          TMATE_DOCKER_CONTAINER: IMAGE_TAG
-          TMATE_ENCRYPT_PASSWORD: ${{secrets.TMATE_ENCRYPT_PASSWORD}}
-          SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
-        uses: tete1030/safe-debugger-action@master
-

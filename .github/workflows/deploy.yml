@@ -8,56 +8,31 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     permissions:
       contents: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-#       - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-#       - name: Setup Node
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: '18'
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
           
-#       - name: Get yarn cache
-#         id: yarn-cache
-#         run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
 
-#       - name: Cache dependencies
-#         uses: actions/cache@v2
-#         with:
-#           path: ${{ steps.yarn-cache.outputs.dir }}
-#           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-#           restore-keys: |
-#             ${{ runner.os }}-yarn-
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-#       - run: yarn install --frozen-lockfile
-#       - run: yarn build
-#       - run: yarn export
-
-   # 部署到腾讯云服务器
-      - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@v2.0.7
-        env:
-            SCRIPT_BEFORE: |
-              whoami
-              ls -al
-              echo "hello" >> a.text
-            SCRIPT_AFTER: |
-                whoami
-                ls -al
-                echo $RSYNC_STDOUT
-            # 本地.ssh文件下的私钥id_rsa，存在secrets的TOKEN中
-            SSH_PRIVATE_KEY: ${{ secrets.SECRET_TOKEN }} 
-            # 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
-            ARGS: "-avzr --delete" 
-            # 源目录，相对于$GITHUB_WORKSPACE根目录的路径
-            SOURCE: "a.text" 
-            # 服务器域名
-            REMOTE_HOST: "124.220.13.164" 
-            # 腾讯云默认用户名为root
-            REMOTE_USER: "root" 
-            # 目标目录
-            TARGET: "/data/chat-web-next"
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn export

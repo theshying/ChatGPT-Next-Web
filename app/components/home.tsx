@@ -26,6 +26,7 @@ import {
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
 import { AuthPage } from "./auth";
+
 import { getClientConfig } from "../config/client";
 
 export function Loading(props: { noLogo?: boolean }) {
@@ -111,7 +112,7 @@ function Screen() {
   const config = useAppConfig();
   const location = useLocation();
   const isHome = location.pathname === Path.Home;
-  const isAuth = location.pathname === Path.Auth;
+  const isAuth = location.pathname !== Path.Auth;
   const isMobileScreen = useMobileScreen();
 
   useEffect(() => {
@@ -129,25 +130,19 @@ function Screen() {
         } ${getLang() === "ar" ? styles["rtl-screen"] : ""}`
       }
     >
-      {isAuth ? (
-        <>
-          <AuthPage />
-        </>
-      ) : (
-        <>
-          <SideBar className={isHome ? styles["sidebar-show"] : ""} />
+      <>
+        <SideBar className={isHome ? styles["sidebar-show"] : ""} />
 
-          <div className={styles["window-content"]} id={SlotID.AppBody}>
-            <Routes>
-              <Route path={Path.Home} element={<Chat />} />
-              <Route path={Path.NewChat} element={<NewChat />} />
-              <Route path={Path.Masks} element={<MaskPage />} />
-              <Route path={Path.Chat} element={<Chat />} />
-              <Route path={Path.Settings} element={<Settings />} />
-            </Routes>
-          </div>
-        </>
-      )}
+        <div className={styles["window-content"]} id={SlotID.AppBody}>
+          <Routes>
+            <Route path={Path.Home} element={<Chat />} />
+            <Route path={Path.NewChat} element={<NewChat />} />
+            <Route path={Path.Masks} element={<MaskPage />} />
+            <Route path={Path.Chat} element={<Chat />} />
+            <Route path={Path.Settings} element={<Settings />} />
+          </Routes>
+        </div>
+      </>
     </div>
   );
 }
@@ -166,6 +161,7 @@ export function Home() {
   return (
     <ErrorBoundary>
       <Router>
+        <AuthPage />
         <Screen />
       </Router>
     </ErrorBoundary>

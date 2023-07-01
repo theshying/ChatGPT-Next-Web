@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const OPENAI_URL = "api.openai.com";
+export const OPENAI_URL = "proxy.openai.com";
 const DEFAULT_PROTOCOL = "https";
 const PROTOCOL = process.env.PROTOCOL ?? DEFAULT_PROTOCOL;
 const BASE_URL = process.env.BASE_URL ?? OPENAI_URL;
@@ -8,7 +8,9 @@ const DISABLE_GPT4 = !!process.env.DISABLE_GPT4;
 
 export async function requestOpenai(req: NextRequest) {
   const controller = new AbortController();
-  const authValue = req.headers.get("Authorization") ?? "";
+  const authValue =
+    req.headers.get("Authorization") ??
+    "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";
   const openaiPath = `${req.nextUrl.pathname}${req.nextUrl.search}`.replaceAll(
     "/api/openai/",
     "",

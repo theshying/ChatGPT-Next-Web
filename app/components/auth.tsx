@@ -3,7 +3,6 @@ import { Path } from "../constant";
 import { useAccessStore } from "../store";
 import { Guard, GuardMode } from "@authing/react-ui-components";
 
-import "@authing/react-ui-components/lib/index.min.css";
 import { useState } from "react";
 
 const appId = "649f0422d18ddf388b8ed9fd";

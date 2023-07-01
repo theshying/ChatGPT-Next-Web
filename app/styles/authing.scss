@@ -1,56 +1,36 @@
-// .auth-page {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 100%;
-//   width: 100%;
-//   flex-direction: column;
-
-//   .auth-logo {
-//     transform: scale(1.4);
-//   }
-
-//   .auth-title {
-//     font-size: 24px;
-//     font-weight: bold;
-//     line-height: 2;
-//   }
-
-//   .auth-tips {
-//     font-size: 14px;
-//   }
-
-//   .auth-input {
-//     margin: 3vh 0;
-//   }
-
-//   .auth-actions {
-//     display: flex;
-//     justify-content: center;
-//     flex-direction: column;
-
-//     button:not(:last-child) {
-//       margin-bottom: 10px;
-//     }
-//   }
-// }
+@import "@authing/react-ui-components/lib/index.min.css";
 
 .g2-view-container,
 .g2-init-setting-loading {
   background: var(--white) !important;
 }
+.g2-view-tabs {
+  margin-top: 40px !important;
+}
+.authing-ant-tabs-nav {
+  margin-bottom: 20px !important;
+}
 .g2-view-login,
 .g2-init-setting-loading {
   min-height: 455px !important;
 }
-.authing-g2-submit-button {
+.g2-view-header {
+  display: none !important;
+}
+.authing-ant-btn {
   background: var(--primary) !important;
   border-color: var(--primary) !important;
+  color: white !important;
+  cursor: pointer !important;
+  &:hover {
+    filter: brightness(0.9) !important;
+  }
+  &:focus {
+    filter: brightness(0.95) !important;
+  }
 }
-.authing-g2-send-code-btn {
-  // &:hover {
-  //   background: var(--gray) !important;
-  // }
+.authing-g2-submit-button {
+  margin-top: 20px !important;
 }
 .authing-ant-tabs-tab-btn {
   color: var(--primary) !important;
@@ -60,6 +40,14 @@
 }
 .g2-view-container .g2-view-tabs {
   color: var(--primary) !important;
+}
+.authing-ant-modal-close {
+  left: auto !important;
+  right: 0 !important;
+}
+
+.authing-ant-input {
+  text-align: left !important;
 }
 // .authing-g2-render-module-modal {
 //   top: 40% !important;

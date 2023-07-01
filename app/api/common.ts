@@ -1,24 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSideConfig } from "../config/server";
 
-export const OPENAI_URL = "proxy.openai.com";
+export const OPENAI_URL = "api.openai-proxy.com";
 const DEFAULT_PROTOCOL = "https";
 const PROTOCOL = process.env.PROTOCOL ?? DEFAULT_PROTOCOL;
 const BASE_URL = process.env.BASE_URL ?? OPENAI_URL;
 const DISABLE_GPT4 = !!process.env.DISABLE_GPT4;
 
 export async function requestOpenai(req: NextRequest) {
+  let { apiKey, baseUrl } = getServerSideConfig();
   const controller = new AbortController();
-  const authValue =
-    req.headers.get("Authorization") ??
-    "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";
+  const authValue = `Bearer ${apiKey}`;
+
   const openaiPath = `${req.nextUrl.pathname}${req.nextUrl.search}`.replaceAll(
     "/api/openai/",
     "",
   );
 
-  let baseUrl = BASE_URL;
-
-  if (!baseUrl.startsWith("http")) {
+  if (!baseUrl?.startsWith("http")) {
     baseUrl = `${PROTOCOL}://${baseUrl}`;
   }
 

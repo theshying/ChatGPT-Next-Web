@@ -3,6 +3,7 @@ import { prettyObject } from "@/app/utils/format";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "../../auth";
 import { requestOpenai } from "../../common";
+import { getServerSideConfig } from "@/app/config/server";
 
 const ALLOWD_PATH = new Set(Object.values(OpenaiPath));
 
@@ -11,7 +12,7 @@ async function handle(
   { params }: { params: { path: string[] } },
 ) {
   console.log("[OpenAI Route] params ", params);
-
+  console.log(getServerSideConfig());
   if (req.method === "OPTIONS") {
     return NextResponse.json({ body: "OK" }, { status: 200 });
   }

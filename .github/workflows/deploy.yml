@@ -49,7 +49,7 @@ jobs:
         run: yarn build
 
       - name: Cp
-        run: cp -r .next/static standalone/.next/
+        run: cp -r .next/static .next/standalone/.next/
 
       # 上传打包资源
       - name: Deploy
